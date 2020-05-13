@@ -1,39 +1,38 @@
 {
-  "name": "atlas",
-  "version": "1.0.0",
-  "description": "Marine decision support tool",
+  "name": "modalMap",
+  "version": "0.0.0",
+  "description": "Map with modals to display data",
+  "main": "index.html",
   "scripts": {
-    "build": "NODE_ENV=production webpack --progress --colors -p && npm run flask-static-digest",
-    "start": "concurrently -n \"WEBPACK,FLASK\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run webpack-watch\" \"npm run flask-server\"",
+    "build": "NODE_ENV=production webpack --progress --colors -p",
+    "start": "concurrently -n \"WEBPACK\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run webpack-watch\" \"npm run serve\"",
+    "serve": "webpack-dev-server --mode development",
     "webpack-watch": "NODE_ENV=debug webpack --mode development --watch",
-    "flask-server": "flask run --host=0.0.0.0",
-    "flask-static-digest": "flask digest compile",
-    "lint": "eslint \"assets/js/*.js\""
+    "lint": "eslint \"/js/*.js\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/craicerjack/atlas.git"
+    "url": "git+https://github.com/carlostighe/modalMap.git"
   },
   "author": "Carlos Tighe",
-  "license": "Private",
+  "license": "MIT",
   "engines": {
     "node": ">=12"
   },
   "bugs": {
-    "url": "https://github.com/craicerjack/atlas/issues"
+    "url": "https://github.com/carlostighe/modalMap/issues"
   },
-  "homepage": "https://github.com/craicerjack/atlas#readme",
+  "homepage": "https://github.com/carlostighe/modalMap#readme",
   "dependencies": {
     "@mapbox/leaflet-omnivore": "^0.3.4",
     "chroma-js": "^2.1.0",
     "d3v4": "^4.2.2",
-    "fs": "^0.0.1-security",
-    "geotiff": "^0.3.6",
+    "html-webpack-plugin": "^4.3.0",
     "jquery": "^3.4.1",
     "leaflet": "^1.6.0",
     "leaflet-canvaslayer-field": "^1.4.1",
     "materialize-css": "1.0.0",
-    "sidebar-v2": "^0.4.0"
+    "minify-geojson": "^1.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -49,6 +48,7 @@
     "raw-loader": "^4.0.0",
     "url-loader": "^3.0.0",
     "webpack": "^4.33.0",
-    "webpack-cli": "^3.3.2"
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.11.0"
   }
 }

@@ -1,5 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 /*
  * Webpack Plugins
  */
@@ -15,15 +17,14 @@ const ProductionPlugins = [
 ];
 
 const debug = process.env.NODE_ENV !== "production";
-const rootAssetPath = path.join(__dirname, "assets");
+const rootAssetPath = path.join(__dirname);
 
 module.exports = {
   // configuration
   context: __dirname,
   entry: {
-    main_js: [path.join(__dirname, "assets", "js", "main")],
-    case_study_js: [path.join(__dirname, "assets", "js", "case-study.js")],
-    main_css: [
+    app_js: [path.join(__dirname, "js", "app")],
+    app_css: [
       path.join(
         __dirname,
         "node_modules",
@@ -33,31 +34,28 @@ module.exports = {
         "materialize.css"
       ),
       path.join(__dirname, "node_modules", "leaflet", "dist", "leaflet.css"),
-      path.join(
-        __dirname,
-        "node_modules",
-        "sidebar-v2",
-        "css",
-        "leaflet-sidebar.css"
-      ),
-      path.join(__dirname, "assets", "css", "style.css"),
+      path.join(__dirname, "css", "style.css"),
     ],
   },
   mode: debug,
   output: {
     filename: "[name].bundle.js",
     chunkFilename: "[id].js",
-    path: path.join(__dirname, "atlas", "static", "build"),
-    publicPath: `/static/build/`,
+    path: path.join(__dirname, "dist"),
+    publicPath: `/dist/`,
   },
   resolve: {
     extensions: [".js", ".jsx", ".css"],
   },
   devtool: debug ? "eval-source-map" : false,
   devServer: {
-    headers: { "Access-Control-Allow-Origin": "*" },
+    // headers: { "Access-Control-Allow-Origin": "*" },
+    contentBase: path.join(__dirname, "dist"),
+    compress: true,
+    port: 9000,
   },
   plugins: [
+    new HtmlWebpackPlugin({ template: "index.html" }),
     new MiniCssExtractPlugin({ filename: "[name].bundle.css" }),
     new webpack.ProvidePlugin({
       $: "jquery",
@@ -100,6 +98,6 @@ module.exports = {
 
   node: {
     fs: "empty",
-    http: "empty"
+    http: "empty",
   },
 };

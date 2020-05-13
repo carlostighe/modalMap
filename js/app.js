@@ -14,4 +14,3 @@ require.context(
 
 // Your own code
 require("./map.js");
-require("./script.js");
